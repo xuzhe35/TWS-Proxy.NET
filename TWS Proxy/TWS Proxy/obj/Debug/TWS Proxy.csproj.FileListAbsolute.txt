@@ -1,0 +1,13 @@
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWS Proxy.exe.config
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWS Proxy.exe
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWS Proxy.pdb
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\obj\Debug\TWS Proxy.csprojResolveAssemblyReference.cache
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\obj\Debug\TWS_Proxy.Form1.resources
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\obj\Debug\TWS_Proxy.Properties.Resources.resources
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\obj\Debug\TWS Proxy.csproj.GenerateResource.Cache
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\obj\Debug\TWS Proxy.exe
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\obj\Debug\TWS Proxy.pdb
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\System.Threading.Tasks.Dataflow.dll
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWSLib.dll
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWSLib.pdb
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\System.Threading.Tasks.Dataflow.xml

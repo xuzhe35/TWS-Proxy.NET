@@ -1,0 +1,7 @@
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWSHelper\bin\Debug\TWSHelper.dll
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWSHelper\bin\Debug\TWSHelper.pdb
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWSHelper\bin\Debug\System.Threading.Tasks.Dataflow.dll
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWSHelper\bin\Debug\System.Threading.Tasks.Dataflow.xml
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWSHelper\obj\Debug\TWSHelper.csprojResolveAssemblyReference.cache
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWSHelper\obj\Debug\TWSHelper.dll
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWSHelper\obj\Debug\TWSHelper.pdb
