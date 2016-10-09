@@ -8,6 +8,12 @@ using IBApi;
 
 namespace TWSHelper
 {
+    public struct AssetUpdate
+    {
+        public string strAssetID;
+        public Asset theAsset;
+        public DateTime TimeTip;
+    }
     public class IB_Client
     {
         public EWrapperImpl wrapper = new EWrapperImpl();
@@ -42,6 +48,8 @@ namespace TWSHelper
         /// </summary>
         Dictionary<int, Asset> dicAssetTickerID = new Dictionary<int, Asset>();
 
+        BroadcastBlock<AssetUpdate> UpdateBoradCast = new BroadcastBlock<AssetUpdate>((msg) => { return msg; });
+
         /// <summary>
         /// 默认构造函数
         /// </summary>
@@ -65,6 +73,33 @@ namespace TWSHelper
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// 获取Asset
+        /// </summary>
+        /// <param name="strAssetID">AssetID</param>
+        /// <returns>返回对应的Asset，如果没有订阅过则返回null</returns>
+        public Asset GetAssetByID(string strAssetID)
+        {
+            if(SubscribedAssets.Exists((a)=>a.AssetID==strAssetID))
+            {
+                return SubscribedAssets.First((a) => a.AssetID == strAssetID);
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 获取Asset
+        /// </summary>
+        /// <param name="strAssetID">AssetID</param>
+        /// <returns>返回对应的Asset，如果没有订阅过则返回null</returns>
+        public Asset g(string strAssetID)
+        {
+            return GetAssetByID(strAssetID);
         }
 
         /// <summary>
@@ -151,6 +186,36 @@ namespace TWSHelper
         {
             Asset newAsset = new Asset(strAssetID);
             return SubscribeMarketData(newAsset);
+        }
+
+        public int SubscribeMarketData(string strAssetID,string Exchange)
+        {
+            Asset newAsset = new Asset(strAssetID);
+            newAsset.IB_Contract.Exchange = Exchange;
+            return SubscribeMarketData(newAsset);
+        }
+
+        public int SubscribeMarketData(string strAssetID, string Exchange,string Currency)
+        {
+            Asset newAsset = new Asset(strAssetID);
+            newAsset.IB_Contract.Exchange = Exchange;
+            newAsset.IB_Contract.Currency = Currency;
+            return SubscribeMarketData(newAsset);
+        }
+
+        public int a(string strAssetID)
+        {
+            return SubscribeMarketData(strAssetID);
+        }
+
+        public int a(string strAssetID,string Exchange)
+        {
+            return SubscribeMarketData(strAssetID, Exchange);
+        }
+
+        public int a(string strAssetID, string Exchange, string Currency)
+        {
+            return SubscribeMarketData(strAssetID, Exchange, Currency);
         }
 
         #region response of IB API call

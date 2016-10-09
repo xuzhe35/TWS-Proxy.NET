@@ -13,4 +13,12 @@ namespace TWSHelper
         int AskSize { get; set; }
         int BidSize { get; set; }
     }
+
+    public class G
+    {
+        double Delta { get; set; }
+        double Gamma { get; set; }
+        double Vega { get; set; }
+        double Theta { get; set; }
+    }
 }
