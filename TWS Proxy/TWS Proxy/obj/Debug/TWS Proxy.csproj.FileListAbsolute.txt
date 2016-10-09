@@ -11,3 +11,5 @@ C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\System.
 C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWSLib.dll
 C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWSLib.pdb
 C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\System.Threading.Tasks.Dataflow.xml
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWSHelper.dll
+C:\Users\许哲\Source\Repos\TWS-Proxy.NET\TWS Proxy\TWS Proxy\bin\Debug\TWSHelper.pdb

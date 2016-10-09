@@ -88,6 +88,10 @@
       <Project>{8EDE0744-96C2-40B0-A8DC-37DF79370203}</Project>
       <Name>CSharpAPI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TWSHelper\TWSHelper.csproj">
+      <Project>{dca56012-7fc9-4704-9b45-2b4f3b561da6}</Project>
+      <Name>TWSHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
