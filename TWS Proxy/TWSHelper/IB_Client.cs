@@ -48,7 +48,7 @@ namespace TWSHelper
         /// </summary>
         Dictionary<int, Asset> dicAssetTickerID = new Dictionary<int, Asset>();
 
-        BroadcastBlock<AssetUpdate> UpdateBoradCast = new BroadcastBlock<AssetUpdate>((msg) => { return msg; });
+        public BroadcastBlock<AssetUpdate> UpdateBoradCast = new BroadcastBlock<AssetUpdate>((msg) => { return msg; });
 
         /// <summary>
         /// 默认构造函数
@@ -219,6 +219,19 @@ namespace TWSHelper
         }
 
         #region response of IB API call
+
+        private void DoBroadCast(Asset theAsset)
+        {
+            AssetUpdate update = new AssetUpdate()
+            {
+                strAssetID = theAsset.AssetID,
+                theAsset = theAsset,
+                TimeTip = DateTime.Now
+            };
+
+            UpdateBoradCast.Post(update);
+        }
+
         public void UpdateMKTAsk(int tickerId, int position, double price, int size)
         {
             Asset theAsset = SubscribedAssets[tickerId];
@@ -230,6 +243,8 @@ namespace TWSHelper
             //newMessage.Ask_Size = size;
 
             theAsset.UpdateMarketData(newMessage);
+
+            DoBroadCast(theAsset);
         }
 
         public void UpdateMKTBid(int tickerId, int position, double price, int size)
@@ -243,6 +258,8 @@ namespace TWSHelper
             //newMessage.Bid_Size = size;
 
             theAsset.UpdateMarketData(newMessage);
+
+            DoBroadCast(theAsset);
         }
 
         public void UpdateGreeks(int tickerId, double delta, double gamma, double vega, double theta)
@@ -254,6 +271,8 @@ namespace TWSHelper
                 return;
 
             theAsset.UpdateGreeks(delta, gamma, vega, theta);
+
+            DoBroadCast(theAsset);
         }
 
         public void UpdateIV(int tickerId, double iv)
@@ -261,6 +280,8 @@ namespace TWSHelper
             Asset theAsset = SubscribedAssets[tickerId];
 
             theAsset.UpdateIV(iv);
+
+            DoBroadCast(theAsset);
         }
 
         public void UpdateAskSize(int tickerId, int size)
@@ -274,6 +295,8 @@ namespace TWSHelper
             newMessage.Ask_Size = size;
 
             theAsset.UpdateMarketData(newMessage);
+
+            DoBroadCast(theAsset);
         }
 
         public void UpdateBidSize(int tickerId, int size)
@@ -287,6 +310,8 @@ namespace TWSHelper
             newMessage.Bid_Size = size;
 
             theAsset.UpdateMarketData(newMessage);
+
+            DoBroadCast(theAsset);
         }
         #endregion
 
