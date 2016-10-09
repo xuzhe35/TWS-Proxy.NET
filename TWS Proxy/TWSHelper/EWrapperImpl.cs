@@ -12,6 +12,8 @@ namespace TWSHelper
         EClientSocket clientSocket;
         private int nextOrderId;
 
+        public IB_Client parent_client;
+
         public EWrapperImpl()
         {
             clientSocket = new EClientSocket(this);
@@ -59,11 +61,11 @@ namespace TWSHelper
         {
             if (field == 1)
             {
-                //InteractiveBroker.UpdateMKTBid(tickerId, 0, price, 0);
+                parent_client.UpdateMKTBid(tickerId, 0, price, 0);
             }
             else if (field == 2)
             {
-                //InteractiveBroker.UpdateMKTAsk(tickerId, 0, price, 0);
+                parent_client.UpdateMKTAsk(tickerId, 0, price, 0);
             }
 
             Console.WriteLine("Tick Price. Ticker Id:" + tickerId + ", Field: " + field + ", Price: " + price + ", CanAutoExecute: " + canAutoExecute + "\n");
@@ -75,11 +77,11 @@ namespace TWSHelper
 
             if (field == 0)
             {
-                //InteractiveBroker.UpdateAskSize(tickerId, size);
+                parent_client.UpdateAskSize(tickerId, size);
             }
             else if (field == 3)
             {
-                //InteractiveBroker.UpdateBidSize(tickerId, size);
+                parent_client.UpdateBidSize(tickerId, size);
             }
         }
 

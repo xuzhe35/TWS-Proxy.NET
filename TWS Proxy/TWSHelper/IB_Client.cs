@@ -12,10 +12,60 @@ namespace TWSHelper
     {
         public EWrapperImpl wrapper = new EWrapperImpl();
 
+        public const int TICK_ID_BASE = 10000000;
+
+        private const int DESCRIPTION_INDEX = 0;
+
+        private const int BID_PRICE_INDEX = 2;
+        private const int ASK_PRICE_INDEX = 3;
+        private const int CLOSE_PRICE_INDEX = 7;
+
+        private const int BID_SIZE_INDEX = 1;
+        private const int ASK_SIZE_INDEX = 4;
+        private const int LAST_SIZE_INDEX = 5;
+        private const int VOLUME_SIZE_INDEX = 6;
+
+        protected int currentTicker = 1;
+
         /// <summary>
         /// 是否已经连接了TWS
         /// </summary>
         public bool IsConnected { get; set; }
+
+        /// <summary>
+        /// 已订阅的资产列表
+        /// </summary>
+        List<Asset> SubscribedAssets = new List<Asset>();
+
+        /// <summary>
+        /// 用于记录TickerID与资产的映射关系
+        /// </summary>
+        Dictionary<int, Asset> dicAssetTickerID = new Dictionary<int, Asset>();
+
+        /// <summary>
+        /// 默认构造函数
+        /// </summary>
+        public IB_Client()
+        {
+            wrapper.parent_client = this;
+        }
+
+        /// <summary>
+        /// 根据AssetID寻找到对应的Contract
+        /// </summary>
+        /// <param name="strAssetID">目前资产的AssetID</param>
+        /// <returns>返回Contract，如果返回null，则说明该资产不存在或者未订阅</returns>
+        private Contract GetContractByAssetID(string strAssetID)
+        {
+            if(SubscribedAssets.Exists((a)=>a.AssetID==strAssetID))
+            {
+                return SubscribedAssets.First((a) => a.AssetID == strAssetID).IB_Contract;
+            }
+            else
+            {
+                return null;
+            }
+        }
 
         /// <summary>
         /// 连接到TWS
@@ -41,6 +91,170 @@ namespace TWSHelper
                 return false;
             }
             finally { }
+        }
+
+        /// <summary>
+        /// 断开连接
+        /// </summary>
+        public void Disconnect()
+        {
+            wrapper.ClientSocket.eDisconnect();
+        }
+
+        /// <summary>
+        /// 订阅一个资产
+        /// </summary>
+        /// <param name="asset">资产</param>
+        /// <returns>1表示成功，0表示已经订阅过了，-1表示没有连接，-2表示未知错误</returns>
+        public int SubscribeMarketData(Asset asset)
+        {
+            try
+            {
+                if (IsConnected)
+                {
+                    //检测是否已经订阅了
+                    if (!SubscribedAssets.Exists((a) => a.AssetID == asset.AssetID))
+                    {
+                        int ticker_id = TICK_ID_BASE + (currentTicker++);
+                        wrapper.ClientSocket.reqMktData(ticker_id, asset.IB_Contract, "", false, new List<TagValue>());
+
+                        dicAssetTickerID.Add(ticker_id, asset);
+                        SubscribedAssets.Add(asset);
+
+                        return 1;
+                    }
+                    else
+                    {
+                        //如果已经订阅了，则返回false
+                        return 0;
+                    }
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message.ToString());
+                return -2;
+            }
+            finally { }
+        }
+
+        /// <summary>
+        /// 订阅一个资产
+        /// </summary>
+        /// <param name="strAssetID">资产的描述</param>
+        /// <returns>1表示成功，0表示已经订阅过了，-1表示没有连接，-2表示未知错误</returns>
+        public int SubscribeMarketData(string strAssetID)
+        {
+            Asset newAsset = new Asset(strAssetID);
+            return SubscribeMarketData(newAsset);
+        }
+
+        #region response of IB API call
+        public void UpdateMKTAsk(int tickerId, int position, double price, int size)
+        {
+            Asset theAsset = SubscribedAssets[tickerId];
+
+            MKT_MESSAGE newMessage = new MKT_MESSAGE();
+
+            newMessage.Type = MKT_MESSAGE.MessageType.ASK_ONLY;
+            newMessage.Ask = Convert.ToDecimal(price);
+            //newMessage.Ask_Size = size;
+
+            theAsset.UpdateMarketData(newMessage);
+        }
+
+        public void UpdateMKTBid(int tickerId, int position, double price, int size)
+        {
+            Asset theAsset = SubscribedAssets[tickerId];
+
+            MKT_MESSAGE newMessage = new MKT_MESSAGE();
+
+            newMessage.Type = MKT_MESSAGE.MessageType.BID_ONLY;
+            newMessage.Bid = Convert.ToDecimal(price);
+            //newMessage.Bid_Size = size;
+
+            theAsset.UpdateMarketData(newMessage);
+        }
+
+        public void UpdateGreeks(int tickerId, double delta, double gamma, double vega, double theta)
+        {
+            Asset theAsset = SubscribedAssets[tickerId];
+
+            //出现-2是希腊字母计算错误导致
+            if (delta == -2 || gamma == -2 || vega == -2 || theta == -2)
+                return;
+
+            theAsset.UpdateGreeks(delta, gamma, vega, theta);
+        }
+
+        public void UpdateIV(int tickerId, double iv)
+        {
+            Asset theAsset = SubscribedAssets[tickerId];
+
+            theAsset.UpdateIV(iv);
+        }
+
+        public void UpdateAskSize(int tickerId, int size)
+        {
+            Asset theAsset = SubscribedAssets[tickerId];
+
+            MKT_MESSAGE newMessage = new MKT_MESSAGE();
+
+            newMessage.Type = MKT_MESSAGE.MessageType.ASK_WITH_SIZE;
+            newMessage.Ask = theAsset.Ask;
+            newMessage.Ask_Size = size;
+
+            theAsset.UpdateMarketData(newMessage);
+        }
+
+        public void UpdateBidSize(int tickerId, int size)
+        {
+            Asset theAsset = SubscribedAssets[tickerId];
+
+            MKT_MESSAGE newMessage = new MKT_MESSAGE();
+
+            newMessage.Type = MKT_MESSAGE.MessageType.BID_WITH_SIZE;
+            newMessage.Bid = theAsset.Bid;
+            newMessage.Bid_Size = size;
+
+            theAsset.UpdateMarketData(newMessage);
+        }
+        #endregion
+
+        /// <summary>
+        /// 以市价买入一个合约
+        /// </summary>
+        /// <param name="strAssetID">资产ID</param>
+        /// <param name="quantity">数量</param>
+        /// <returns>返回一个OrderID</returns>
+        public string Buy(string strAssetID,int quantity)
+        {
+            return "-1";
+        }
+
+        /// <summary>
+        /// 以市价卖出一个合约
+        /// </summary>
+        /// <param name="strAssetID">资产ID</param>
+        /// <param name="quanity">数量</param>
+        /// <returns>返回一个OrderID</returns>
+        public string Sell(string strAssetID,int quanity)
+        {
+            return "-1";
+        }
+
+        public string BuyLMT(string strAssetID,int quantity,double price)
+        {
+            return "-1";
+        }
+
+        public string SellLMT(string strAssetID,int quanity,double price)
+        {
+            return "-1";
         }
     }
 }
