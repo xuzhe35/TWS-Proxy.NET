@@ -100,7 +100,7 @@ namespace TWSHelper
                     Type = ContractType.FUT;
 
                     string future_symbol = strAssetID.Substring(0, first_dot);
-                    string future_expire = strAssetID.Substring(first_dot + 1, strAssetID.Length - first_dot - 1);
+                    string future_expire = strAssetID.Substring(first_dot, strAssetID.Length - first_dot);
 
                     IB_Contract = ContractFactory.getFuture(future_symbol, "SMART", future_expire, "USD");
                 }

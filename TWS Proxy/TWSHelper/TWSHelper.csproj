@@ -49,7 +49,6 @@
     <Compile Include="EWrapperImpl.cs" />
     <Compile Include="IB_Client.cs" />
     <Compile Include="MKT_MESSAGE.cs" />
-    <Compile Include="P.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
