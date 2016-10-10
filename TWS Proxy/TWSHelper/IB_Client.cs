@@ -38,11 +38,14 @@ namespace TWSHelper
         private const int VOLUME_SIZE_INDEX = 6;
 
         protected int currentTicker = 1;
+        private int OrderID = 3000;
 
         /// <summary>
         /// 是否已经连接了TWS
         /// </summary>
         public bool IsConnected { get; set; }
+
+        public string DefaultAccout { get; set; }
 
         /// <summary>
         /// 已订阅的资产列表
@@ -331,9 +334,32 @@ namespace TWSHelper
         /// <param name="strAssetID">资产ID</param>
         /// <param name="quantity">数量</param>
         /// <returns>返回一个OrderID</returns>
-        public string Buy(string strAssetID,int quantity)
+        public int Buy(string strAssetID,int quantity)
         {
-            return "-1";
+            Contract contract = GetContractByAssetID(strAssetID);
+            int ret_OrderID = -1;
+
+            if(IsConnected)
+            {
+                Order order = new Order();
+                order.Action = "BUY";
+                order.OrderType = "MKT";
+                order.TotalQuantity = quantity;
+
+                if (!string.IsNullOrEmpty(DefaultAccout))
+                    order.Account = DefaultAccout;
+
+                wrapper.ClientSocket.placeOrder(OrderID, contract, order);
+                ret_OrderID = OrderID;
+
+                OrderID++;
+
+                return ret_OrderID;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
         /// <summary>
@@ -342,19 +368,100 @@ namespace TWSHelper
         /// <param name="strAssetID">资产ID</param>
         /// <param name="quanity">数量</param>
         /// <returns>返回一个OrderID</returns>
-        public string Sell(string strAssetID,int quanity)
+        public int Sell(string strAssetID,int quantity)
         {
-            return "-1";
+            Contract contract = GetContractByAssetID(strAssetID);
+            int ret_OrderID = -1;
+
+            if (IsConnected)
+            {
+                Order order = new Order();
+                order.Action = "SELL";
+                order.OrderType = "MKT";
+                order.TotalQuantity = quantity;
+
+                if (!string.IsNullOrEmpty(DefaultAccout))
+                    order.Account = DefaultAccout;
+
+                wrapper.ClientSocket.placeOrder(OrderID, contract, order);
+                ret_OrderID = OrderID;
+
+                OrderID++;
+
+                return ret_OrderID;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
-        public string BuyLMT(string strAssetID,int quantity,double price)
+        public int BuyLMT(string strAssetID,int quantity, double price)
         {
-            return "-1";
+            Contract contract = GetContractByAssetID(strAssetID);
+            int ret_OrderID = -1;
+
+            if (IsConnected)
+            {
+                Order order = new Order();
+                order.Action = "BUY";
+                order.OrderType = "LMT";
+                order.LmtPrice = price;
+                order.TotalQuantity = quantity;
+
+                if (!string.IsNullOrEmpty(DefaultAccout))
+                    order.Account = DefaultAccout;
+
+                wrapper.ClientSocket.placeOrder(OrderID, contract, order);
+                ret_OrderID = OrderID;
+
+                OrderID++;
+
+                return ret_OrderID;
+            }
+            else
+            {
+                return -1;
+            }
         }
 
-        public string SellLMT(string strAssetID,int quanity,double price)
+        public int SellLMT(string strAssetID,int quantity, double price)
         {
-            return "-1";
+            Contract contract = GetContractByAssetID(strAssetID);
+            int ret_OrderID = -1;
+
+            if (IsConnected)
+            {
+                Order order = new Order();
+                order.Action = "SELL";
+                order.OrderType = "LMT";
+                order.LmtPrice = price;
+                order.TotalQuantity = quantity;
+
+                if (!string.IsNullOrEmpty(DefaultAccout))
+                    order.Account = DefaultAccout;
+
+                wrapper.ClientSocket.placeOrder(OrderID, contract, order);
+                ret_OrderID = OrderID;
+
+                OrderID++;
+
+                return ret_OrderID;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public void CancelOrder(int OrderId)
+        {
+            wrapper.ClientSocket.cancelOrder(OrderId);
+        }
+
+        public void CancelAllOrders()
+        {
+            wrapper.ClientSocket.reqGlobalCancel();
         }
     }
 }

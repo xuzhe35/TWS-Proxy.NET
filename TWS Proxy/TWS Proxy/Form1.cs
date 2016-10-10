@@ -57,5 +57,50 @@ namespace TWS_Proxy
         {
             client.add(txtAssetID.Text, txtExchange.Text);
         }
+
+        private void btnBuy_Click(object sender, EventArgs e)
+        {
+            client.DefaultAccout = txtAccount.Text;
+
+            client.Buy(txtTradeAssetID.Text, int.Parse(txtQuanity.Text));
+        }
+
+        private void btnSell_Click(object sender, EventArgs e)
+        {
+            client.DefaultAccout = txtAccount.Text;
+
+            client.Sell(txtTradeAssetID.Text, int.Parse(txtQuanity.Text));
+        }
+
+        private void btnBuyLMT_Click(object sender, EventArgs e)
+        {
+            client.DefaultAccout = txtAccount.Text;
+            int order_id = client.BuyLMT(txtTradeAssetID.Text, int.Parse(txtQuanity.Text), double.Parse(txtPriceLMT.Text));
+
+            listOrderIDs.Items.Add(order_id);
+        }
+
+        private void btnSellLMT_Click(object sender, EventArgs e)
+        {
+            client.DefaultAccout = txtAccount.Text;
+            int order_id = client.SellLMT(txtTradeAssetID.Text, int.Parse(txtQuanity.Text), double.Parse(txtPriceLMT.Text));
+
+            listOrderIDs.Items.Add(order_id);
+        }
+
+        private void btnCancelAllOrders_Click(object sender, EventArgs e)
+        {
+            client.CancelAllOrders();
+
+            listOrderIDs.Items.Clear();
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            int i = listOrderIDs.SelectedIndex;
+            int order_id = Convert.ToInt32(listOrderIDs.Items[i]);
+
+            client.CancelOrder(order_id);
+        }
     }
 }

@@ -44,10 +44,27 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtExchange = new System.Windows.Forms.TextBox();
             this.btnSubWithExchange = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtTradeAssetID = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.btnBuy = new System.Windows.Forms.Button();
+            this.btnSell = new System.Windows.Forms.Button();
+            this.txtQuanity = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.txtAccount = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtPriceLMT = new System.Windows.Forms.TextBox();
+            this.btnSellLMT = new System.Windows.Forms.Button();
+            this.btnBuyLMT = new System.Windows.Forms.Button();
+            this.listOrderIDs = new System.Windows.Forms.ListBox();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.btnCancelAllOrders = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtIP
@@ -62,6 +79,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -207,6 +225,166 @@
             this.btnSubWithExchange.UseVisualStyleBackColor = true;
             this.btnSubWithExchange.Click += new System.EventHandler(this.btnSubWithExchange_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.btnCancelAllOrders);
+            this.tabPage3.Controls.Add(this.btnCancel);
+            this.tabPage3.Controls.Add(this.listOrderIDs);
+            this.tabPage3.Controls.Add(this.btnSellLMT);
+            this.tabPage3.Controls.Add(this.btnBuyLMT);
+            this.tabPage3.Controls.Add(this.txtPriceLMT);
+            this.tabPage3.Controls.Add(this.label8);
+            this.tabPage3.Controls.Add(this.txtAccount);
+            this.tabPage3.Controls.Add(this.label7);
+            this.tabPage3.Controls.Add(this.txtQuanity);
+            this.tabPage3.Controls.Add(this.btnSell);
+            this.tabPage3.Controls.Add(this.btnBuy);
+            this.tabPage3.Controls.Add(this.label6);
+            this.tabPage3.Controls.Add(this.txtTradeAssetID);
+            this.tabPage3.Controls.Add(this.label5);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(958, 199);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Trade";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(20, 15);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 12);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "AssetID:";
+            // 
+            // txtTradeAssetID
+            // 
+            this.txtTradeAssetID.Location = new System.Drawing.Point(79, 12);
+            this.txtTradeAssetID.Name = "txtTradeAssetID";
+            this.txtTradeAssetID.Size = new System.Drawing.Size(196, 21);
+            this.txtTradeAssetID.TabIndex = 1;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(20, 51);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(59, 12);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Quantity:";
+            // 
+            // btnBuy
+            // 
+            this.btnBuy.Location = new System.Drawing.Point(79, 119);
+            this.btnBuy.Name = "btnBuy";
+            this.btnBuy.Size = new System.Drawing.Size(78, 31);
+            this.btnBuy.TabIndex = 3;
+            this.btnBuy.Text = "Buy";
+            this.btnBuy.UseVisualStyleBackColor = true;
+            this.btnBuy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnSell
+            // 
+            this.btnSell.Location = new System.Drawing.Point(163, 119);
+            this.btnSell.Name = "btnSell";
+            this.btnSell.Size = new System.Drawing.Size(78, 31);
+            this.btnSell.TabIndex = 4;
+            this.btnSell.Text = "Sell";
+            this.btnSell.UseVisualStyleBackColor = true;
+            this.btnSell.Click += new System.EventHandler(this.btnSell_Click);
+            // 
+            // txtQuanity
+            // 
+            this.txtQuanity.Location = new System.Drawing.Point(79, 48);
+            this.txtQuanity.Name = "txtQuanity";
+            this.txtQuanity.Size = new System.Drawing.Size(196, 21);
+            this.txtQuanity.TabIndex = 5;
+            this.txtQuanity.Text = "1";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(20, 85);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(53, 12);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Account:";
+            // 
+            // txtAccount
+            // 
+            this.txtAccount.Location = new System.Drawing.Point(79, 82);
+            this.txtAccount.Name = "txtAccount";
+            this.txtAccount.Size = new System.Drawing.Size(196, 21);
+            this.txtAccount.TabIndex = 7;
+            this.txtAccount.Text = "DU269607";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(338, 15);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(65, 12);
+            this.label8.TabIndex = 8;
+            this.label8.Text = "LMT Price:";
+            // 
+            // txtPriceLMT
+            // 
+            this.txtPriceLMT.Location = new System.Drawing.Point(409, 12);
+            this.txtPriceLMT.Name = "txtPriceLMT";
+            this.txtPriceLMT.Size = new System.Drawing.Size(115, 21);
+            this.txtPriceLMT.TabIndex = 9;
+            // 
+            // btnSellLMT
+            // 
+            this.btnSellLMT.Location = new System.Drawing.Point(446, 119);
+            this.btnSellLMT.Name = "btnSellLMT";
+            this.btnSellLMT.Size = new System.Drawing.Size(78, 31);
+            this.btnSellLMT.TabIndex = 11;
+            this.btnSellLMT.Text = "Sell LMT";
+            this.btnSellLMT.UseVisualStyleBackColor = true;
+            this.btnSellLMT.Click += new System.EventHandler(this.btnSellLMT_Click);
+            // 
+            // btnBuyLMT
+            // 
+            this.btnBuyLMT.Location = new System.Drawing.Point(362, 119);
+            this.btnBuyLMT.Name = "btnBuyLMT";
+            this.btnBuyLMT.Size = new System.Drawing.Size(78, 31);
+            this.btnBuyLMT.TabIndex = 10;
+            this.btnBuyLMT.Text = "Buy LMT";
+            this.btnBuyLMT.UseVisualStyleBackColor = true;
+            this.btnBuyLMT.Click += new System.EventHandler(this.btnBuyLMT_Click);
+            // 
+            // listOrderIDs
+            // 
+            this.listOrderIDs.FormattingEnabled = true;
+            this.listOrderIDs.ItemHeight = 12;
+            this.listOrderIDs.Location = new System.Drawing.Point(569, 15);
+            this.listOrderIDs.Name = "listOrderIDs";
+            this.listOrderIDs.Size = new System.Drawing.Size(197, 76);
+            this.listOrderIDs.TabIndex = 12;
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Location = new System.Drawing.Point(569, 119);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(78, 31);
+            this.btnCancel.TabIndex = 13;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnCancelAllOrders
+            // 
+            this.btnCancelAllOrders.Location = new System.Drawing.Point(653, 119);
+            this.btnCancelAllOrders.Name = "btnCancelAllOrders";
+            this.btnCancelAllOrders.Size = new System.Drawing.Size(113, 31);
+            this.btnCancelAllOrders.TabIndex = 14;
+            this.btnCancelAllOrders.Text = "Cancel all";
+            this.btnCancelAllOrders.UseVisualStyleBackColor = true;
+            this.btnCancelAllOrders.Click += new System.EventHandler(this.btnCancelAllOrders_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -223,6 +401,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -245,6 +425,22 @@
         private System.Windows.Forms.Button btnSubWithExchange;
         private System.Windows.Forms.TextBox txtExchange;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button btnSell;
+        private System.Windows.Forms.Button btnBuy;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox txtTradeAssetID;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtAccount;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox txtQuanity;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ListBox listOrderIDs;
+        private System.Windows.Forms.Button btnSellLMT;
+        private System.Windows.Forms.Button btnBuyLMT;
+        private System.Windows.Forms.TextBox txtPriceLMT;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Button btnCancelAllOrders;
     }
 }
 
