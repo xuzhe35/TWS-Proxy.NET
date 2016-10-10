@@ -21,9 +21,16 @@ namespace TWS_Proxy
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            Control.CheckForIllegalCrossThreadCalls = false;
+
             ActionBlock<AssetUpdate> OnUpdate = new ActionBlock<AssetUpdate>((update) =>
             {
-                
+                string news = string.Format("{0}:{1}({2}),{3}({4})",update.strAssetID,
+                    update.Ask.ToString(),update.AskSize.ToString(),
+                    update.Bid.ToString(),update.BidSize.ToString());
+
+
+                listLogs.Items.Add(news);
             });
 
             client.UpdateBoradCast.LinkTo(OnUpdate);
@@ -43,9 +50,12 @@ namespace TWS_Proxy
 
         private void btnSubscribe_Click(object sender, EventArgs e)
         {
-            client.a(txtAssetID.Text);
+            client.add(txtAssetID.Text);
         }
 
-
+        private void btnSubWithExchange_Click(object sender, EventArgs e)
+        {
+            client.add(txtAssetID.Text, txtExchange.Text);
+        }
     }
 }

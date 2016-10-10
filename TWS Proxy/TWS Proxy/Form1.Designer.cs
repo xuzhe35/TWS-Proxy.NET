@@ -39,9 +39,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtAssetID = new System.Windows.Forms.TextBox();
             this.btnSubscribe = new System.Windows.Forms.Button();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.listLogs = new System.Windows.Forms.ListBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtExchange = new System.Windows.Forms.TextBox();
+            this.btnSubWithExchange = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtIP
@@ -80,6 +86,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.btnSubWithExchange);
+            this.tabPage2.Controls.Add(this.txtExchange);
+            this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.btnSubscribe);
             this.tabPage2.Controls.Add(this.txtAssetID);
             this.tabPage2.Controls.Add(this.label3);
@@ -153,11 +162,57 @@
             this.btnSubscribe.UseVisualStyleBackColor = true;
             this.btnSubscribe.Click += new System.EventHandler(this.btnSubscribe_Click);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.listLogs);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 225);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(966, 338);
+            this.panel1.TabIndex = 3;
+            // 
+            // listLogs
+            // 
+            this.listLogs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listLogs.FormattingEnabled = true;
+            this.listLogs.ItemHeight = 12;
+            this.listLogs.Location = new System.Drawing.Point(0, 0);
+            this.listLogs.Name = "listLogs";
+            this.listLogs.Size = new System.Drawing.Size(966, 338);
+            this.listLogs.TabIndex = 0;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(11, 68);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(59, 12);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Exchange:";
+            // 
+            // txtExchange
+            // 
+            this.txtExchange.Location = new System.Drawing.Point(76, 65);
+            this.txtExchange.Name = "txtExchange";
+            this.txtExchange.Size = new System.Drawing.Size(144, 21);
+            this.txtExchange.TabIndex = 4;
+            // 
+            // btnSubWithExchange
+            // 
+            this.btnSubWithExchange.Location = new System.Drawing.Point(226, 63);
+            this.btnSubWithExchange.Name = "btnSubWithExchange";
+            this.btnSubWithExchange.Size = new System.Drawing.Size(75, 23);
+            this.btnSubWithExchange.TabIndex = 5;
+            this.btnSubWithExchange.Text = "Subscribe";
+            this.btnSubWithExchange.UseVisualStyleBackColor = true;
+            this.btnSubWithExchange.Click += new System.EventHandler(this.btnSubWithExchange_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(966, 563);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "TWS Porxy";
@@ -167,6 +222,7 @@
             this.tabPage1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -184,6 +240,11 @@
         private System.Windows.Forms.Button btnSubscribe;
         private System.Windows.Forms.TextBox txtAssetID;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.ListBox listLogs;
+        private System.Windows.Forms.Button btnSubWithExchange;
+        private System.Windows.Forms.TextBox txtExchange;
+        private System.Windows.Forms.Label label4;
     }
 }
 

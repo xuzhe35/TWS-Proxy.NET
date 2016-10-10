@@ -11,9 +11,15 @@ namespace TWSHelper
     public struct AssetUpdate
     {
         public string strAssetID;
+        public decimal Ask;
+        public decimal Bid;
+        public int AskSize;
+        public int BidSize;
         public Asset theAsset;
         public DateTime TimeTip;
     }
+    
+
     public class IB_Client
     {
         public EWrapperImpl wrapper = new EWrapperImpl();
@@ -97,7 +103,7 @@ namespace TWSHelper
         /// </summary>
         /// <param name="strAssetID">AssetID</param>
         /// <returns>返回对应的Asset，如果没有订阅过则返回null</returns>
-        public Asset g(string strAssetID)
+        public Asset get(string strAssetID)
         {
             return GetAssetByID(strAssetID);
         }
@@ -203,17 +209,17 @@ namespace TWSHelper
             return SubscribeMarketData(newAsset);
         }
 
-        public int a(string strAssetID)
+        public int add(string strAssetID)
         {
             return SubscribeMarketData(strAssetID);
         }
 
-        public int a(string strAssetID,string Exchange)
+        public int add(string strAssetID,string Exchange)
         {
             return SubscribeMarketData(strAssetID, Exchange);
         }
 
-        public int a(string strAssetID, string Exchange, string Currency)
+        public int add(string strAssetID, string Exchange, string Currency)
         {
             return SubscribeMarketData(strAssetID, Exchange, Currency);
         }
@@ -225,6 +231,10 @@ namespace TWSHelper
             AssetUpdate update = new AssetUpdate()
             {
                 strAssetID = theAsset.AssetID,
+                Ask = theAsset.Ask,
+                Bid = theAsset.Bid,
+                AskSize = theAsset.Ask_Size,
+                BidSize = theAsset.Bid_Size,
                 theAsset = theAsset,
                 TimeTip = DateTime.Now
             };
@@ -234,7 +244,7 @@ namespace TWSHelper
 
         public void UpdateMKTAsk(int tickerId, int position, double price, int size)
         {
-            Asset theAsset = SubscribedAssets[tickerId];
+            Asset theAsset = dicAssetTickerID[tickerId];
 
             MKT_MESSAGE newMessage = new MKT_MESSAGE();
 
@@ -249,7 +259,7 @@ namespace TWSHelper
 
         public void UpdateMKTBid(int tickerId, int position, double price, int size)
         {
-            Asset theAsset = SubscribedAssets[tickerId];
+            Asset theAsset = dicAssetTickerID[tickerId];
 
             MKT_MESSAGE newMessage = new MKT_MESSAGE();
 
@@ -264,7 +274,7 @@ namespace TWSHelper
 
         public void UpdateGreeks(int tickerId, double delta, double gamma, double vega, double theta)
         {
-            Asset theAsset = SubscribedAssets[tickerId];
+            Asset theAsset = dicAssetTickerID[tickerId];
 
             //出现-2是希腊字母计算错误导致
             if (delta == -2 || gamma == -2 || vega == -2 || theta == -2)
@@ -277,7 +287,7 @@ namespace TWSHelper
 
         public void UpdateIV(int tickerId, double iv)
         {
-            Asset theAsset = SubscribedAssets[tickerId];
+            Asset theAsset = dicAssetTickerID[tickerId];
 
             theAsset.UpdateIV(iv);
 
@@ -286,7 +296,7 @@ namespace TWSHelper
 
         public void UpdateAskSize(int tickerId, int size)
         {
-            Asset theAsset = SubscribedAssets[tickerId];
+            Asset theAsset = dicAssetTickerID[tickerId];
 
             MKT_MESSAGE newMessage = new MKT_MESSAGE();
 
@@ -301,7 +311,7 @@ namespace TWSHelper
 
         public void UpdateBidSize(int tickerId, int size)
         {
-            Asset theAsset = SubscribedAssets[tickerId];
+            Asset theAsset = dicAssetTickerID[tickerId];
 
             MKT_MESSAGE newMessage = new MKT_MESSAGE();
 

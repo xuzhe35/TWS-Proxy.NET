@@ -93,6 +93,17 @@ namespace TWSHelper
             Contract contract = new Contract();
             contract.Symbol = strSymbol;
             contract.Currency = "USD";
+            contract.SecType = "CASH";
+            contract.Exchange = "IDEALPRO";
+            return contract;
+        }
+
+        public static Contract getCurrency2(string strSymbol)
+        {
+            Contract contract = new Contract();
+            contract.Symbol = "USD";
+            contract.Currency = strSymbol;
+            contract.SecType = "CASH";
             contract.Exchange = "IDEALPRO";
             return contract;
         }

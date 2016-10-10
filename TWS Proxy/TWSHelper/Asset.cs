@@ -14,6 +14,7 @@ namespace TWSHelper
         OPT,
         FOP,
         CFD,
+        FX,
         IND
     }
     public class Asset
@@ -82,7 +83,7 @@ namespace TWSHelper
                 {
                     Type = ContractType.OPT;
 
-                    string[] splited_opt = strAssetID.Split(',');
+                    string[] splited_opt = strAssetID.Split('.');
 
                     IB_Contract = ContractFactory.getOption(splited_opt[1], Convert.ToDouble(splited_opt[4]), splited_opt[3], "USD", splited_opt[2], "SMART");
 
@@ -91,7 +92,7 @@ namespace TWSHelper
                 {
                     Type = ContractType.FOP;
 
-                    string[] splited_fop = strAssetID.Split(',');
+                    string[] splited_fop = strAssetID.Split('.');
 
                     IB_Contract = ContractFactory.getFOP(splited_fop[1], Convert.ToDouble(splited_fop[4]), splited_fop[3], "USD", splited_fop[2], "SMART");
                 }
@@ -100,15 +101,28 @@ namespace TWSHelper
                     Type = ContractType.FUT;
 
                     string future_symbol = strAssetID.Substring(0, first_dot);
-                    string future_expire = strAssetID.Substring(first_dot, strAssetID.Length - first_dot);
+                    string future_expire = strAssetID.Substring(first_dot + 1, strAssetID.Length - first_dot - 1);
 
                     IB_Contract = ContractFactory.getFuture(future_symbol, "SMART", future_expire, "USD");
                 }
             }
             else
             {
-                IB_Contract = ContractFactory.getStock(strAssetID, "SMART", "USD");
-                Type = ContractType.STK;
+                if (strAssetID.Length == 6 && strAssetID.EndsWith("USD"))
+                {
+                    IB_Contract = ContractFactory.getCurrency(strAssetID.Substring(0, 3));
+                    Type = ContractType.FX;
+                }
+                else if (strAssetID.Length == 6 && strAssetID.StartsWith("USD"))
+                {
+                    IB_Contract = ContractFactory.getCurrency2(strAssetID.Substring(3, 3));
+                    Type = ContractType.FX;
+                }
+                else
+                {
+                    IB_Contract = ContractFactory.getStock(strAssetID, "SMART", "USD");
+                    Type = ContractType.STK;
+                }
             }
         }
 
